@@ -15,10 +15,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user() && $request->user()->status === 'admin') {
-            return $next($request);
+        if ($request->user() && $request->user()->status !== 'admin') {
+            return redirect('dev_nyilvantartas/resources/views/admin/dashboard.blade.php'); // Redirect non-admin users to the home page or any other route
         }
 
-        abort(403, 'Unauthorized');
+        return $next($request);
     }
 }
