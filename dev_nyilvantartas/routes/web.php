@@ -19,10 +19,14 @@ Route::get('/', function () {
 //sima oldal route
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        if (auth()->user()->status === 'admin') {
+            return view('dashboard-admin');
+        } else {
+            return view('dashboard-user');
+        }
     })->name('dashboard');
 });
 //admin oldal route
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-});
+//Route::middleware(['auth', 'admin'])->group(function () {
+//    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+//});
