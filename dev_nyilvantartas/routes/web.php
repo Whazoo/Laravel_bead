@@ -25,8 +25,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             return view('dashboard-user');
         }
     })->name('dashboard');
+    Route::get('/admin-only', function () {
+        if (auth()->user()->status === 'admin') {
+            return view('admin-only');
+        } else {
+            return view('dashboard-user');
+        }
+    })->name('admin.only');
 });
-//admin oldal route
-//Route::middleware(['auth', 'admin'])->group(function () {
-//    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-//});
+
+
+

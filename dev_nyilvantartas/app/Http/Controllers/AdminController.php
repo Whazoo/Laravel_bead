@@ -8,5 +8,10 @@
         {
             return view('admin.dashboard');
         }
+        public function adminOnlyPage()
+        {
+            return view('admin-only');
+        }
+
     }
 
