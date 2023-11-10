@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         if (auth()->user()->status === 'admin') {
             return view('admin-only');
         } else {
-            return view('dashboard-user');
+            return view('noaccess-user');
         }
     })->name('admin.only');
 });
