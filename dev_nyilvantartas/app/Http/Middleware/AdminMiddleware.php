@@ -15,10 +15,14 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user() && $request->user()->status !== 'admin') {
-            return redirect('dev_nyilvantartas/resources/views/admin/dashboard.blade.php'); // Redirect non-admin users to the home page or any other route
+        // Check if the user is an admin
+        if ($request->user() && $request->user()->role !== 'admin') {
+            // Flash a message to be displayed
+            $request->session()->flash('error', 'You do not have permission to access this page.');
+
+            return redirect('/');
         }
 
         return $next($request);
+        }
     }
-}
