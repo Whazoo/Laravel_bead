@@ -34,5 +34,16 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     })->name('admin.only');
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+});
+//Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'admin'])->group(function () {
+//    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+//});
+
+//Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+
+
+
 
 

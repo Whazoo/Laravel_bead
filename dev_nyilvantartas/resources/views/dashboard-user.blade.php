@@ -10,11 +10,6 @@
             <div class="bg-black bg-opacity-25 overflow-hidden shadow-xl sm:rounded-lg">
                 <x-welcome />
             </div>
-            @admin
-            <div>
-                <h1>MŰKÖDIK EZAZ</h1>
-            </div>
-            @endadmin
         </div>
     </div>
 </x-app-layout>
