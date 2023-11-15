@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TaskController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,9 +36,18 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     })->name('admin.only');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+    Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
 });
+
+//Route::middleware(['auth', 'admin'])->group(function () {
+//    Route::resource('tasks', TaskController::class);
+//});
+
+//Route::middleware(['auth', 'admin'])->group(function () {
+   //Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+//});
 //Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'admin'])->group(function () {
 //    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 //});
