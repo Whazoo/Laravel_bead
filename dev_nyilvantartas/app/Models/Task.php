@@ -25,7 +25,7 @@ class Task extends Model
 
     public function user()
     {
-        return $this->belongsToMany(User::class)->withPivot('accepted_at', 'finished_at');
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }
 

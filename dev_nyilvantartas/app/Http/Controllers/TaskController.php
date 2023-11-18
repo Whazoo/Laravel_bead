@@ -66,12 +66,17 @@ class TaskController extends Controller
     }
     public function index()
     {
-        $tasks = Task::all(); // Retrieve all tasks from the database
+        //$tasks = Task::all(); // Retrieve all tasks from the database
         $tasks = Task::with('user')->get();
         return view('index', ['tasks' => $tasks]);
     }
     public function acceptTask(Request $request, Task $task)
     {
+        // Check if the task has already been accepted by any user
+        if ($task->user()->whereNotNull('accepted_at')->exists()) {
+            return redirect()->route('tasks.index')->with('error', 'Task has already been accepted by another user.');
+        }
+
         // Attach the authenticated user to the task and record the acceptance time
         auth()->user()->tasks()->attach($task, ['accepted_at' => now()]);
 
@@ -80,20 +85,26 @@ class TaskController extends Controller
             'status' => 'folyamatban',
             'updated_at' => now(),
         ]);
-
         return redirect()->route('tasks.index')->with('success', 'Task accepted successfully.');
     }
     public function finishTask(Request $request, Task $task)
     {
+        // Check if the authenticated user has accepted the task
+        if (!$task->user()->where('user_id', auth()->id())->whereNotNull('accepted_at')->exists()) {
+            return redirect()->route('tasks.index')->with('error', 'You are not authorized to finish this task.');
+        }
+
         // Detach the authenticated user from the task and record the completion time
         auth()->user()->tasks()->updateExistingPivot($task, ['finished_at' => now()]);
 
-        // Update the task status and updated_at in the tasks table
-        $task->update([
-            'status' => 'befejezve',
-            'updated_at' => now(),
-        ]);
-
+        // Check if all users have finished the task
+        if ($task->user()->wherePivot('finished_at', null)->doesntExist()) {
+            // If all users have finished, update the task status to 'befejezve'
+            $task->update([
+                'status' => 'befejezve',
+                'updated_at' => now(),
+            ]);
+        }
         return redirect()->route('tasks.index')->with('success', 'Task marked as finished successfully.');
     }
 }
