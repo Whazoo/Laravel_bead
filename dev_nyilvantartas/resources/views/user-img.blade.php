@@ -17,8 +17,8 @@
             text-align: center;
         }
         .centered-image img {
-            width: 85%; /* Set the width to 50% to scale down the image */
-            height: auto; /* Maintain the aspect ratio */
+            width: 85%;
+            height: auto;
         }
     </style>
 </head>
