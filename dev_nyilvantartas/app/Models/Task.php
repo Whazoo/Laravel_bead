@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
+    public $timestamps = true;
+
 
     // Define the fillable fields
     protected $fillable = [
@@ -20,5 +22,10 @@ class Task extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
 

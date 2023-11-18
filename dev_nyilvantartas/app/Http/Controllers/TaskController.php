@@ -31,10 +31,6 @@ class TaskController extends Controller
             'description' => 'required|string', // Add or adjust validation for description
         ]);
 
-
-        // Debug information
-        //dd('Task creation logic reached');
-
         $user = auth()->user();
 
         // Check if the user has admin status
@@ -66,6 +62,11 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Task created successfully.');
         //return response()->json(['message' => 'Task created successfully']);
         //return redirect()->route('tasks.create')->with('success', 'Task created successfully.');
+    }
+    public function index()
+    {
+        $tasks = Task::all(); // Retrieve all tasks from the database
+        return view('tasks.index', ['tasks' => $tasks]);
     }
 }
 
