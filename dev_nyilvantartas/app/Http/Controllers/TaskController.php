@@ -59,14 +59,42 @@ class TaskController extends Controller
             Log::error('Task creation failed', ['request' => $request->all()]);
         }
 
-        return redirect()->back()->with('success', 'Task created successfully.');
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
+        //return redirect()->back()->with('success', 'Task created successfully.');
         //return response()->json(['message' => 'Task created successfully']);
         //return redirect()->route('tasks.create')->with('success', 'Task created successfully.');
     }
     public function index()
     {
         $tasks = Task::all(); // Retrieve all tasks from the database
-        return view('tasks.index', ['tasks' => $tasks]);
+        $tasks = Task::with('user')->get();
+        return view('index', ['tasks' => $tasks]);
+    }
+    public function acceptTask(Request $request, Task $task)
+    {
+        // Attach the authenticated user to the task and record the acceptance time
+        auth()->user()->tasks()->attach($task, ['accepted_at' => now()]);
+
+        // Update the task status and updated_at in the tasks table
+        $task->update([
+            'status' => 'folyamatban',
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('tasks.index')->with('success', 'Task accepted successfully.');
+    }
+    public function finishTask(Request $request, Task $task)
+    {
+        // Detach the authenticated user from the task and record the completion time
+        auth()->user()->tasks()->updateExistingPivot($task, ['finished_at' => now()]);
+
+        // Update the task status and updated_at in the tasks table
+        $task->update([
+            'status' => 'befejezve',
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('tasks.index')->with('success', 'Task marked as finished successfully.');
     }
 }
 

@@ -1,4 +1,3 @@
-@extends('layouts.app')
 
 <x-app-layout>
     <x-slot name="header">
@@ -7,5 +6,6 @@
         </h2>
     </x-slot>
 
+    <x-task-list :tasks="$tasks" />
 
 </x-app-layout>

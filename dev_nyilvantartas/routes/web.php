@@ -41,7 +41,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
 });
 Route::middleware(['auth'])->group(function () {
-    Route::get('/tasks/index', [TaskController::class, 'index'])->name('tasks.index');
+    Route::get('/index', [TaskController::class, 'index'])->name('tasks.index');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+    Route::post('/tasks/{task}/accept', [TaskController::class, 'acceptTask'])->name('tasks.accept');
+    Route::post('/tasks/{task}/finish', [TaskController::class, 'finishTask'])->name('tasks.finish');
 });
 
 
