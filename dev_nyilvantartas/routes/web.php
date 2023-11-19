@@ -49,6 +49,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tasks/{task}/finish', [TaskController::class, 'finishTask'])->name('tasks.finish');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/tasks', [TaskController::class, 'adminTasks'])->name('tasks.index');
+    Route::delete('/tasks/{task}', [TaskController::class, 'deleteTask'])->name('tasks.delete');
+    Route::post('/tasks/{task}/close', [TaskController::class, 'closeTask'])->name('tasks.close');
+});
+
 
 //Route::middleware(['auth', 'admin'])->group(function () {
 //    Route::resource('tasks', TaskController::class);

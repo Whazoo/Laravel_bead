@@ -64,10 +64,27 @@ class TaskController extends Controller
         //return response()->json(['message' => 'Task created successfully']);
         //return redirect()->route('tasks.create')->with('success', 'Task created successfully.');
     }
-    public function index()
+    public function index(Request $request)
     {
-        //$tasks = Task::all(); // Retrieve all tasks from the database
+        // Retrieve all tasks with user information
         $tasks = Task::with('user')->get();
+
+        // Check for query parameter to filter tasks
+        if ($request->has('action')) {
+            $action = $request->query('action');
+
+            if ($action === 'deleted') {
+                // Filter out deleted tasks
+                $tasks = $tasks->reject(function ($task) {
+                return $task->trashed();
+                });
+            } elseif ($action === 'closed') {
+                // Filter out closed tasks
+                $tasks = $tasks->reject(function ($task) {
+                return $task->status === 'lezárva';
+                });
+            }
+        }
         return view('index', ['tasks' => $tasks]);
     }
     public function acceptTask(Request $request, Task $task)
@@ -106,6 +123,23 @@ class TaskController extends Controller
             ]);
         }
         return redirect()->route('tasks.index')->with('success', 'Task marked as finished successfully.');
+    }
+    public function adminTasks()
+    {
+        $tasks = Task::with('user')->get();
+        $isAdmin = auth()->user()->status === 'admin';
+        return view('index', ['tasks' => $tasks, 'isAdmin' => $isAdmin]);
+    }
+    public function deleteTask(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('tasks.index', ['action' => 'deleted'])->with('success', 'Task deleted successfully.');
+    }
+
+    public function closeTask(Task $task)
+    {
+        $task->update(['status' => 'lezárva']);
+        return redirect()->route('tasks.index', ['action' => 'closed'])->with('success', 'Task marked as closed successfully.');
     }
 }
 

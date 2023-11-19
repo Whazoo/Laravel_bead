@@ -6,6 +6,7 @@
         </h2>
     </x-slot>
 
-    <x-task-list :tasks="$tasks" />
+    <x-task-list :tasks="$tasks" :isAdmin="$isAdmin" />
+
 
 </x-app-layout>
