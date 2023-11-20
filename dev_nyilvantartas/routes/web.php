@@ -55,6 +55,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tasks/{task}/close', [TaskController::class, 'closeTask'])->name('tasks.close');
 });
 
+Route::middleware(['auth', 'status:admin'])->group(function () {
+    Route::get('/admin/users', [TaskController::class, 'adminUsers'])->name('admin.users.index');
+});
+
 
 //Route::middleware(['auth', 'admin'])->group(function () {
 //    Route::resource('tasks', TaskController::class);

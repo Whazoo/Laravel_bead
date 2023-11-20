@@ -21,6 +21,9 @@
                     <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('admin.only')">
                         {{ __('Feladatok') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.only')">
+                        {{ __('Felhasználók') }}
+                    </x-nav-link>
                 </div>
             </div>
 

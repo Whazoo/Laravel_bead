@@ -43,7 +43,7 @@
     button.accept-btn {
         background-color: #28a745;
         color: #fff;
-        margin-right: 5px; /* Add margin to separate buttons */
+        margin-right: 5px;
     }
 
     button.finish-btn {

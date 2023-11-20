@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -140,6 +141,18 @@ class TaskController extends Controller
     {
         $task->update(['status' => 'lezárva']);
         return redirect()->route('tasks.index', ['action' => 'closed'])->with('success', 'Task marked as closed successfully.');
+    }
+    public function adminUsers()
+    {
+        // Fetch all users with the 'user' role
+        $users = User::where('status', 'user')->get();
+
+        // Fetch tasks marked as 'folyamatban' for each user
+        foreach ($users as $user) {
+            $user->acceptedTasks = $user->tasks()->wherePivot('finished_at', '=', null)->get();
+        }
+
+        return view('admin-users-index', ['users' => $users]);
     }
 }
 
