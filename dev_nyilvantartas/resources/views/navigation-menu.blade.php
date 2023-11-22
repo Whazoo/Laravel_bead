@@ -18,14 +18,14 @@
                     <x-nav-link href="{{ route('admin.only') }}" :active="request()->routeIs('admin.only')">
                         {{ __('Feladatok Létrehozása') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('admin.only')">
+                    <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
                         {{ __('Feladatok') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.only')">
+                    <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
                         {{ __('Felhasználók') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('search') }}" :active="request()->routeIs('admin.only')">
-                        {{ __('Keresés') }}
+                    <x-nav-link :href="route('search')" :active="request()->routeIs('search')">
+                        {{ __('Search') }}
                     </x-nav-link>
                 </div>
             </div>

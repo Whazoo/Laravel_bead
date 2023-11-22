@@ -39,20 +39,13 @@ class TaskController extends Controller
             Log::error('User does not have admin status', ['user_id' => $user->id, 'status' => $user->status]);
             abort(403, 'Unauthorized action.');
         }
-        //dd($request->all());
-
-        // Validate the form data
-        //$request->validate([
-        //    'title' => 'required|string|max:255',
-        //    'description' => 'required|string',
-        //]);
 
         // Create a new task with default status 'bejegyezve'
         $task = Task::create([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'status' => 'bejegyezve',
-            'start_date' => now(),
+            'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date') ?? null,
             'user_id' => null,
         ]);

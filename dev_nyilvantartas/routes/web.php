@@ -58,6 +58,10 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'status:admin'])->group(function () {
     Route::get('/admin/users', [TaskController::class, 'adminUsers'])->name('admin.users.index');
 });
+Route::get('/search', function () {
+    return view('search');
+})->name('search');
+
 
 
 //Route::middleware(['auth', 'admin'])->group(function () {

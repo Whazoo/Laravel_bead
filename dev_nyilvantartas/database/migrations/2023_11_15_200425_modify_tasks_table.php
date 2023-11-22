@@ -13,7 +13,6 @@ return new class extends Migration
     {
         if (Schema::hasColumn('tasks', 'user_id')) {
             Schema::table('tasks', function (Blueprint $table) {
-                // Modify the 'user_id' column if it exists
                 $table->unsignedBigInteger('user_id')->nullable()->change();
             });
         }

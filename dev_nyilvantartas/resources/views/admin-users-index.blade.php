@@ -40,7 +40,7 @@
 
 @section('content')
 
-<h2>Admin Users and Their Tasks</h2>
+<h2>Felhasználók által elfogadott és folyamatban lévő feladatok.</h2>
 
 @forelse($users as $user)
     <h3>{{ $user->name }}</h3>
@@ -48,11 +48,11 @@
         @forelse($user->acceptedTasks as $task)
             <li>{{ $task->title }} - {{ $task->description }}</li>
         @empty
-            <li>No tasks in progress.</li>
+            <li>Nincs folyamatban lévő feladat.</li>
         @endforelse
     </ul>
 @empty
-    <p>No users found.</p>
+    <p>Nem található felhasználó.</p>
 @endforelse
 
 @endsection
