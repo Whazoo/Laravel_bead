@@ -36,8 +36,28 @@ class SearchController extends Controller
 
         return view('search', compact('results', 'status'));
     }
+    public function showResults(Request $request)
+    {
+        $query = $request->input('query');
+        $results = Task::query()
+            ->when($request->filled('title'), function ($query) use ($request) {
+                return $query->where('title', 'like', '%' . $request->input('title') . '%');
+            })
+            ->when($request->filled('start_date'), function ($query) use ($request) {
+                return $query->where('start_date', '>=', $request->input('start_date'));
+            })
+            ->when($request->filled('end_date'), function ($query) use ($request) {
+                return $query->where('end_date', '<=', $request->input('end_date'));
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                return $query->where('status', $request->input('status'));
+            })
+            ->get();
 
+        $status = ['bejegyezve', 'folyamatban', 'befejezve', 'lezarva'];
 
+        return view('search-results', ['results' => $results]);
+    }
 }
 
 

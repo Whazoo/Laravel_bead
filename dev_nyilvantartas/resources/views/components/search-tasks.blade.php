@@ -50,7 +50,7 @@
 </style>
 
 <div class="search-container">
-    <form method="GET" action="{{ route('search') }}">
+    <form method="GET" action="{{ route('search-results') }}">
         @csrf
         <label for="title">Title:</label>
         <input type="text" name="title" class="search-input">

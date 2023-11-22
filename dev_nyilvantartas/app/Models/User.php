@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Task::class)->withPivot('accepted_at', 'finished_at');
     }
+    public function acceptedTasks()
+    {
+        return $this->tasks()->wherePivot('accepted_at', '!=', null);
+    }
 }
+
