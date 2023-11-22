@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\SearchController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -58,9 +60,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'status:admin'])->group(function () {
     Route::get('/admin/users', [TaskController::class, 'adminUsers'])->name('admin.users.index');
 });
-Route::get('/search', function () {
-    return view('search');
-})->name('search');
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
 
 
 
