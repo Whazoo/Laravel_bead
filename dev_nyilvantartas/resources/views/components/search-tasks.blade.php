@@ -1,5 +1,5 @@
 
-@props(['route'])
+@props(['route,status,result'])
 
 <style>
     .search-container {
@@ -61,21 +61,17 @@
         <label for="end_date">End Date:</label>
         <input type="date" name="end_date" class="search-input">
 
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="">All</option>
+            <option value="bejegyezve">Bejegyezve</option>
+            <option value="folyamatban">Folyamatban</option>
+            <option value="befejezve">Befejezve</option>
+            <option value="lezárva">Lezárt</option>
+        </select>
+
         <button type="submit" class="search-button">Search</button>
     </form>
-    <div>
-        @if(isset($results))
-            @if($results->isEmpty())
-                <p>No results found.</p>
-            @else
-                <ul>
-                    @foreach($results as $result)
-                        <li>{{ $result->title }} - {{ $result->description }}</li>
-                    @endforeach
-                </ul>
-            @endif
-        @endif
-    </div>
 
 </div>
 

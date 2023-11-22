@@ -61,6 +61,8 @@ Route::middleware(['auth', 'status:admin'])->group(function () {
     Route::get('/admin/users', [TaskController::class, 'adminUsers'])->name('admin.users.index');
 });
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+Route::get('/search-results', [SearchController::class, 'search'])->name('search.results');
+
 
 
 

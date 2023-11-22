@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-search-tasks :results="$results" />
+    <x-search-tasks :results="$results" :statuses="$status" />
 
 
 </x-app-layout>
