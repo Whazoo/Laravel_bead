@@ -21,11 +21,11 @@
                     required autocomplete="username" />
             </div>
 
-            <label for="status">Felhasználó Típus:</label>
+            {{-- <label for="status">Felhasználó Típus:</label>
             <select id="status" name="status">
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
-            </select>
+            </select> --}}
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />

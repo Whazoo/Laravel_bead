@@ -24,14 +24,14 @@ class CreateNewUser implements CreatesNewUsers
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-            'status' => ['required', 'string', 'in:user,admin'], // Status validáció
+            //'status' => ['required', 'string', 'in:user,admin'], // Status validáció
         ])->validate();
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'status' => $input['status'], // Status hozzáadása
+            //'status' => $input['status'], // Status hozzáadása
         ]);
     }
 }
