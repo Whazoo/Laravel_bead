@@ -22,7 +22,7 @@
                         {{ __('Feladatok') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('accepted-tasks') }}" :active="request()->routeIs('accepted-tasks')">
-                        {{ __('Accepted Tasks') }}
+                        {{ __('Elfogadott feladatok') }}
                     </x-nav-link>
                     <x-nav-link :href="route('search')" :active="request()->routeIs('search')">
                         {{ __('Search') }}
