@@ -59,9 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tasks/{task}/close', [TaskController::class, 'closeTask'])->name('tasks.close');
 });
 
-//Route::middleware(['auth', 'status:admin'])->group(function () {
-//    Route::get('/admin/users', [TaskController::class, 'adminUsers'])->name('admin.users.index');
-//});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/accepted-tasks', [UserController::class, 'showAcceptedTasks'])->name('accepted-tasks');
 });
@@ -70,7 +68,9 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search-results', [SearchController::class, 'showResults'])->name('search-results');
 
 
-
+//Route::middleware(['auth', 'status:admin'])->group(function () {
+//    Route::get('/admin/users', [TaskController::class, 'adminUsers'])->name('admin.users.index');
+//});
 
 
 //Route::middleware(['auth', 'admin'])->group(function () {

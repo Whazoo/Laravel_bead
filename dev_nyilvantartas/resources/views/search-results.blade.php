@@ -5,12 +5,13 @@
     }
 
     li {
-        background-color: #dff0d8; /* Green for positive results */
+        background-color: azure; /* Green for positive results */
         margin-bottom: 20px;
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease-in-out;
+        margin-top: 50px;
     }
 
     li:hover {
@@ -46,7 +47,6 @@
             <li>
                 <h3>{{ $result->title }}</h3>
                 <p>{{ $result->description }}</p>
-                <!-- Add more details or styling as needed -->
             </li>
         @endforeach
     </ul>

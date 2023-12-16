@@ -10,14 +10,12 @@
 
     li {
         background-color: #f8f9fa;
-        margin-bottom: 20px;
+        margin-bottom: 10px; /* Adjusted margin to reduce space */
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease-in-out;
         max-width: 800px;
-        margin-left: 300px;
-        margin-top: 20px;
         display: flex;
         justify-content: space-between;
     }
@@ -91,12 +89,32 @@
         background-color: #28a745;
     }
 
-    .lezarva {
+    .lezárva {
         background-color: #6c757d;
+    }
+
+    .task-list-container {
+        display: flex;
+        justify-content: center; /* Center both lists */
+    }
+
+    .task-list,
+    .legend-list {
+        list-style-type: none;
+        padding: 100px;
+        width: 100%;
+    }
+    .list-title {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
     }
 </style>
 
-<ul>
+<div class="task-list-container">
+<p class="list-title">Feladatok:</p>
+<ul class="task-list">
     @forelse($tasks as $task)
         <li class="{{ strtolower($task->status) }}">
             {{ $task->title }} - {{ $task->description }}
@@ -136,5 +154,12 @@
         <li>No tasks available.</li>
     @endforelse
 </ul>
-
+<p class="list-title">Státuszuk:</p>
+<ul class="legend-list">
+    <li class="bejegyezve">Bejegyezve</li>
+    <li class="folyamatban">Folyamatban</li>
+    <li class="befejezve">Befejezve</li>
+    <li class="lezárva">Lezárva</li>
+</ul>
+</div>
 
